@@ -18,9 +18,9 @@
 	 
 	$connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
 	 
-	echo json_encode($connection);
 	$tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitteruser."&count=".$notweets);
 	 
+	echo json_encode($tweets);
 	
 	exit;
 
