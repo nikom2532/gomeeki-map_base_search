@@ -1,20 +1,64 @@
-asdf
 <?php
-	include_once("twitteroauth/twitteroauth/twitteroauth.php");
+	session_start();
+	include_once('library/twitteroauth.php');
 	
-	$consumer = "YdljHfELFcHxaF0eyazk2SfMY";
+	$twitteruser = "nikom2532";
+	$notweets = 30;
+	
+	$consumerkey = "YdljHfELFcHxaF0eyazk2SfMY";
 	$consumersecret = "08ugbkfVGT7dF7SG6yvKSMgL0niOtsrYM0W1aEJM2v2AkF3z3N";
-	$accesstoken = "109898812-oG9ZeiGOWIdKLIbTsaDk4eIrnUpVcuDhtq2Dfvky";
-	$accesstokensecret = "2BlT2W5kg6O8qKsQNKrkXJQPEYkPBZLe7isUtVaxPuxCO";
+	$accesstoken = "109898812-CF7g8GFIszC4sUTEhdorPgCtRzYee7TUNWCTDiCt";
+	$accesstokensecret = "6v8y9cLvgflg0W3VBpmrWqELHpRQCF1P47LfQB8kJ990W";
 	
+	
+	function getConnectionWithAccessToken($cons_key, $cons_secret, $oauth_token, $oauth_token_secret) {
+		$connection = new TwitterOAuth($cons_key, $cons_secret, $oauth_token, $oauth_token_secret);
+		return $connection;
+	}
+	 
+	$connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
+	 
+	echo json_encode($connection);
+	$tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitteruser."&count=".$notweets);
+	 
+	
+	exit;
+
+	
+	/*
 	$twitter = new TwitterOAuth(
-		$consumer,
+		$consumerkey,
 		$consumersecret,
 		$accesstoken,
 		$accesstokensecret
 	);
 	
-	$tweets = $twitter->get('https://api.twitter.com/1.1/search/tweets.json?q=test&result_type=recent&count=10');
+	// var_dump($twitter);
+	// exit;
+	
+	// $tweets = $twitter->get('https://api.twitter.com/1.1/search/tweets.json?q=test&result_type=recent&count=10');
+	$tweets = $twitter->get('statuses/home_timeline');
+	
+	var_dump($tweets);
+	*/
+	
+	
+	/*
+	function getConnectionWithAccessToken($consumer, $consumersecret, $oauth_token, $oauth_token_secret) {
+		$connection = new TwitterOAuth($consumer, $consumersecret, $oauth_token, $oauth_token_secret);
+		return $connection;
+	}
+	 
+	$connection = getConnectionWithAccessToken(
+		$consumerkey,
+		$consumersecret,
+		$accesstoken,
+		$accesstokensecret
+	);
+	$content = $connection->get("statuses/home_timeline");
+	
+	var_dump($content);
+	*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +95,7 @@ asdf
 			</nav>
 
 			<div>
-				<?php var_dump($tweets); ?>
+				<?php //var_dump($tweets); ?>
 			</div>
 
 			<footer>
