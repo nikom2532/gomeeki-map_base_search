@@ -23,7 +23,7 @@
 	
 	// $tweets2 = $connection->get("https://api.twitter.com/1.1/search/tweets.json?q=%23adecco&result_type=recent&geocode=37.781157,-122.398720,1mi&count=4");
 	
-	$tweets2 = $connection->get("https://api.twitter.com/1.1/search/tweets.json?q=%23thailand&result_type=recent&count=4");
+	$tweets2 = $connection->get("https://api.twitter.com/1.1/search/tweets.json?q=thailand&result_type=recent&count=4");
 	
 	// var_dump($tweets2);
 	echo json_encode($tweets2);
@@ -33,7 +33,7 @@
 		// echo $value[""]
 	// }
 	
-	exit;
+	// exit;
 
 	
 	/*
@@ -70,6 +70,8 @@
 	
 	var_dump($content);
 	*/
+	
+	/*
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,3 +119,4 @@
 		</div>
 	</body>
 </html>
+*/ ?>
