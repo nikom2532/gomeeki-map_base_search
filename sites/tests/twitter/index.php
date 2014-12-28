@@ -18,9 +18,17 @@
 	 
 	$connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
 	 
-	$tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitteruser."&count=".$notweets);
-	 
-	echo json_encode($tweets);
+	// $tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitteruser."&count=".$notweets);
+	
+	
+	$tweets2 = $connection->get("https://api.twitter.com/1.1/search/tweets.json?q=%23adecco&result_type=recent");
+	
+	
+	var_dump($tweets2);
+	
+	// foreach ($tweets2 as $key => $value) {
+		// echo $value[""]
+	// }
 	
 	exit;
 
