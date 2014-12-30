@@ -130,6 +130,23 @@ function initialize() {
     var bounds = map.getBounds();
     searchBox.setBounds(bounds);
   });
+  
+  
+  
+	var myLatlng = new google.maps.LatLng(-33.8902, 151.1759);
+	var mapOptions = {
+	  zoom: 4,
+	  center: myLatlng
+	}
+	
+	var marker = new google.maps.Marker({
+	    position: myLatlng,
+	    title:"Hello World!"
+	});
+	
+	// To add the marker to the map, call setMap();
+	marker.setMap(map);
+  
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
