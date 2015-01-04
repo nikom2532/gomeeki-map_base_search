@@ -67,14 +67,16 @@
 				if(isset($_POST["search_cityname"])){
 					if($_POST["search_cityname"] == "yes"){
 ?>
-						setMarker(map);
+						// setMarker(map);
 						$("#city-label").css("display", "block");
 						$("#city-text").html("<?php echo $_POST["cityname"]; ?>");
 						
 						var input = document.getElementById('cityname');
+						// console.log(input);
+						
 						var searchBox = new google.maps.places.SearchBox(input);
+						
 						google.maps.event.addListener(searchBox, 'places_changed', function() {
-							
 							var places = searchBox.getPlaces();
 							
 							if (places.length == 0) {
@@ -88,20 +90,72 @@
     						for (var i = 0, place; place = places[i]; i++) {
     							var marker = new google.maps.Marker({
 									map: map,
-									// icon: image,
 									title: place.name,
 									position: place.geometry.location
 								});
+								createMarker(place);
     							markers.push(marker);
     							bounds.extend(place.geometry.location);
     						}
-    						
+    						map.fitBounds(bounds);
 						});
 						
+						google.maps.event.addListener(map, 'bounds_changed', function() {
+							var bounds = map.getBounds();
+							searchBox.setBounds(bounds);
+						});
 <?php
 					}
 				}
 ?>
+				function createMarker(place) {
+				  var placeLoc = place.geometry.location;
+				  var marker = new google.maps.Marker({
+				    map: map,
+				    position: place.geometry.location
+				  });
+				
+				  google.maps.event.addListener(marker, 'click', function() {
+				    infowindow.setContent(place.name);
+				    infowindow.open(map, this);
+				  });
+				}
+				
+				
+				function setMarker(map){
+					var myLatlng = new google.maps.LatLng(13.7898093,100.632129);
+					var mapOptions = {
+					  zoom: 4,
+					  center: myLatlng
+					}
+					
+					var marker = new google.maps.Marker({
+					    position: myLatlng,
+					    title:"Hello World!"
+					});
+					
+					var contentString = 
+					  '<div id="content">'+
+					  '<div id="siteNotice">'+
+					  '</div>'+
+					  '<h1 id="firstHeading" class="firstHeading">Test</h1>'+
+					  '<div id="bodyContent">'+
+					  '<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
+					  '<p>in Thai is <b>Nikom Suwankamol</b></p>' +
+					  '</div>'+
+					  '</div>';
+					
+					var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+					  
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.open(map,marker);
+					});
+					  
+					// To add the marker to the map, call setMap();
+					marker.setMap(map);
+				}
 			}
 			
 			google.maps.event.addDomListener(window, 'load', initialize);
@@ -110,54 +164,7 @@
 						
 			}
 			
-			function createMarker(place) {
-			  var placeLoc = place.geometry.location;
-			  var marker = new google.maps.Marker({
-			    map: map,
-			    position: place.geometry.location
-			  });
 			
-			  google.maps.event.addListener(marker, 'click', function() {
-			    infowindow.setContent(place.name);
-			    infowindow.open(map, this);
-			  });
-			}
-			
-			
-			function setMarker(map){
-				var myLatlng = new google.maps.LatLng(13.7898093,100.632129);
-				var mapOptions = {
-				  zoom: 4,
-				  center: myLatlng
-				}
-				
-				var marker = new google.maps.Marker({
-				    position: myLatlng,
-				    title:"Hello World!"
-				});
-				
-				var contentString = 
-				  '<div id="content">'+
-				  '<div id="siteNotice">'+
-				  '</div>'+
-				  '<h1 id="firstHeading" class="firstHeading">Test</h1>'+
-				  '<div id="bodyContent">'+
-				  '<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
-				  '<p>in Thai is <b>Nikom Suwankamol</b></p>' +
-				  '</div>'+
-				  '</div>';
-				
-				var infowindow = new google.maps.InfoWindow({
-					content: contentString
-				});
-				  
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.open(map,marker);
-				});
-				  
-				// To add the marker to the map, call setMap();
-				marker.setMap(map);
-			}
 			
 		</script>
 	</head>
