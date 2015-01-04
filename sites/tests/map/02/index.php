@@ -43,16 +43,53 @@
 			function initialize() {
 				var mapOptions = {
 					center : {
-						lat : -34.397,
-						lng : 150.644
+						lat : 13.7898093,
+						lng : 100.632129
 					},
 					zoom : 8
 				};
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+				
+				
+				
+				var myLatlng = new google.maps.LatLng(13.7898093,100.632129);
+				var mapOptions = {
+				  zoom: 4,
+				  center: myLatlng
+				}
+				
+				var marker = new google.maps.Marker({
+				    position: myLatlng,
+				    title:"Hello World!"
+				});
+				
+				var contentString = 
+				  '<div id="content">'+
+				  '<div id="siteNotice">'+
+				  '</div>'+
+				  '<h1 id="firstHeading" class="firstHeading">Test</h1>'+
+				  '<div id="bodyContent">'+
+				  '<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
+				  '<p>in Thai is <b>Nikom Suwankamol</b></p>' +
+				  '</div>'+
+				  '</div>';
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+				  
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map,marker);
+				});
+				  
+				// To add the marker to the map, call setMap();
+				marker.setMap(map);
+				
 			}
-
-
+			
 			google.maps.event.addDomListener(window, 'load', initialize);
+			
+			
 		</script>
 	</head>
 	<body>
