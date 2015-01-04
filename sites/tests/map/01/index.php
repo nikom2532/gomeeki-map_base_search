@@ -87,6 +87,8 @@ function initialize() {
   // pick list. Retrieve the matching places for that item.
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
+    
+    console.log(places);
 
     if (places.length == 0) {
       return;
@@ -99,24 +101,44 @@ function initialize() {
     markers = [];
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0, place; place = places[i]; i++) {
-      var image = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
+      // var image = {
+        // url: place.icon,
+        // size: new google.maps.Size(71, 71),
+        // origin: new google.maps.Point(0, 0),
+        // anchor: new google.maps.Point(17, 34),
+        // scaledSize: new google.maps.Size(25, 25)
+      // };
 
       // Create a marker for each place.
       var marker = new google.maps.Marker({
         map: map,
-        icon: image,
+        // icon: image,
         title: place.name,
         position: place.geometry.location
       });
 
-      markers.push(marker);
-
+				var contentString = 
+					'<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					'<h1 id="firstHeading" class="firstHeading">Test</h1>'+
+					'<div id="bodyContent">'+
+					'<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
+					'<p>in Thai is <b>Nikom Suwankamol</b></p>' +
+					'</div>'+
+					'</div>';
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+				  
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map,marker);
+				});
+				marker.setMap(map);
+		
+		markers.push(marker);
+		
       bounds.extend(place.geometry.location);
     }
 

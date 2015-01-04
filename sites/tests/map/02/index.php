@@ -70,6 +70,10 @@
 						setMarker(map);
 						$("#city-label").css("display", "block");
 						$("#city-text").html("<?php echo $_POST["cityname"]; ?>");
+						
+						
+						
+						
 <?php
 					}
 				}
@@ -77,6 +81,37 @@
 			}
 			
 			google.maps.event.addDomListener(window, 'load', initialize);
+			
+			/*
+			function setTest(map){
+						var input = document.getElementById('cityname');
+						var searchBox = new google.maps.places.SearchBox(input);
+						google.maps.event.addListener(searchBox, 'places_changed', function() {
+							
+							var places = searchBox.getPlaces();
+							
+							if (places.length == 0) {
+								return;
+							}
+							for (var i = 0, marker; marker = markers[i]; i++) {
+								marker.setMap(null);
+							}
+							markers = [];
+    						var bounds = new google.maps.LatLngBounds();
+    						for (var i = 0, place; place = places[i]; i++) {
+    							var marker = new google.maps.Marker({
+									map: map,
+									// icon: image,
+									title: place.name,
+									position: place.geometry.location
+								});
+    							markers.push(marker);
+    							bounds.extend(place.geometry.location);
+    						}
+    						
+						});
+			}
+			*/
 			
 			
 			function setMarker(map){
@@ -122,7 +157,7 @@
 		</div>
 		<div id="map-canvas"></div>
 		<form class="form" name="form" id="form" method="post">
-			<input type="text" name="cityname" class="pac-input" value="<?
+			<input type="text" name="cityname" id="cityname" class="pac-input" value="<?
 				if(isset($_POST["cityname"])){
 					echo $_POST["cityname"];
 				}
