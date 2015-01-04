@@ -30,8 +30,6 @@
 				outline: none;
 				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 			}
-			
-			
 		</style>
 		<!-- <script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzxoqIy0F2_2xhgXOgCZHSH83Mtw4Kujg"></script> -->
@@ -50,8 +48,22 @@
 				};
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 				
-				
-				
+<?php
+				if(isset($_POST["search_cityname"])){
+					if($_POST["search_cityname"] == "yes"){
+?>
+						setMarker(map);
+						
+<?php
+					}
+				}
+?>
+			}
+			
+			google.maps.event.addDomListener(window, 'load', initialize);
+			
+			
+			function setMarker(map){
 				var myLatlng = new google.maps.LatLng(13.7898093,100.632129);
 				var mapOptions = {
 				  zoom: 4,
@@ -84,18 +96,15 @@
 				  
 				// To add the marker to the map, call setMap();
 				marker.setMap(map);
-				
 			}
-			
-			google.maps.event.addDomListener(window, 'load', initialize);
-			
 			
 		</script>
 	</head>
 	<body>
 		<div id="map-canvas"></div>
-		<form class="form">
+		<form class="form" name="form" id="form" method="post">
 			<input type="text" class="pac-input" value="" placeholder="City name" />
+			<input type="hidden" name="search_cityname" value="yes" />
 		</form>
 	</body>
 </html>
