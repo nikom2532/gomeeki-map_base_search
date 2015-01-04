@@ -88,7 +88,7 @@ function initialize() {
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
     
-    console.log(places);
+    // console.log(places);
 
     if (places.length == 0) {
       return;
@@ -100,6 +100,9 @@ function initialize() {
     // For each place, get the icon, place name, and location.
     markers = [];
     var bounds = new google.maps.LatLngBounds();
+    
+    console.log(bounds);
+    
     for (var i = 0, place; place = places[i]; i++) {
       // var image = {
         // url: place.icon,
@@ -117,25 +120,25 @@ function initialize() {
         position: place.geometry.location
       });
 
-				var contentString = 
-					'<div id="content">'+
-					'<div id="siteNotice">'+
-					'</div>'+
-					'<h1 id="firstHeading" class="firstHeading">Test</h1>'+
-					'<div id="bodyContent">'+
-					'<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
-					'<p>in Thai is <b>Nikom Suwankamol</b></p>' +
-					'</div>'+
-					'</div>';
-				
-				var infowindow = new google.maps.InfoWindow({
-					content: contentString
-				});
-				  
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.open(map,marker);
-				});
-				marker.setMap(map);
+				// var contentString = 
+					// '<div id="content">'+
+					// '<div id="siteNotice">'+
+					// '</div>'+
+					// '<h1 id="firstHeading" class="firstHeading">Test</h1>'+
+					// '<div id="bodyContent">'+
+					// '<p><b>Test</b>, My name is <b>Arming Huang</b> in Thai is <b>Nikom Suwankamol</b></p>' +
+					// '<p>in Thai is <b>Nikom Suwankamol</b></p>' +
+					// '</div>'+
+					// '</div>';
+// 				
+				// var infowindow = new google.maps.InfoWindow({
+					// content: contentString
+				// });
+// 				  
+				// google.maps.event.addListener(marker, 'click', function() {
+					// infowindow.open(map,marker);
+				// });
+		createMarker(place);
 		
 		markers.push(marker);
 		
@@ -192,7 +195,21 @@ function initialize() {
 	
 	// To add the marker to the map, call setMap();
 	marker.setMap(map);
-  
+	
+	
+	function createMarker(place) {
+	  var placeLoc = place.geometry.location;
+	  var marker = new google.maps.Marker({
+	    map: map,
+	    position: place.geometry.location
+	  });
+	
+	  google.maps.event.addListener(marker, 'click', function() {
+	    infowindow.setContent(place.name);
+	    infowindow.open(map, this);
+	  });
+	}
+	
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

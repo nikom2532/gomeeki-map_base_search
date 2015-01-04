@@ -71,19 +71,6 @@
 						$("#city-label").css("display", "block");
 						$("#city-text").html("<?php echo $_POST["cityname"]; ?>");
 						
-						
-						
-						
-<?php
-					}
-				}
-?>
-			}
-			
-			google.maps.event.addDomListener(window, 'load', initialize);
-			
-			/*
-			function setTest(map){
 						var input = document.getElementById('cityname');
 						var searchBox = new google.maps.places.SearchBox(input);
 						google.maps.event.addListener(searchBox, 'places_changed', function() {
@@ -110,8 +97,31 @@
     						}
     						
 						});
+						
+<?php
+					}
+				}
+?>
 			}
-			*/
+			
+			google.maps.event.addDomListener(window, 'load', initialize);
+			
+			function setTest(){
+						
+			}
+			
+			function createMarker(place) {
+			  var placeLoc = place.geometry.location;
+			  var marker = new google.maps.Marker({
+			    map: map,
+			    position: place.geometry.location
+			  });
+			
+			  google.maps.event.addListener(marker, 'click', function() {
+			    infowindow.setContent(place.name);
+			    infowindow.open(map, this);
+			  });
+			}
 			
 			
 			function setMarker(map){
