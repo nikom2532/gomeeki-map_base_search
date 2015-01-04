@@ -78,7 +78,7 @@
 						
 						google.maps.event.addListener(searchBox, 'places_changed', function() {
 							var places = searchBox.getPlaces();
-							
+							alert("test");
 							if (places.length == 0) {
 								return;
 							}

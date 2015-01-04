@@ -87,7 +87,7 @@ function initialize() {
   // pick list. Retrieve the matching places for that item.
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
-    
+    alert("test");
     if (places.length == 0) {
       return;
     }
